@@ -50,7 +50,7 @@ group :test do
   gem 'webdrivers'
 end
 
-gem 'rspec-rails', '~> 6.0.0', groups: %i[:development :test]
+gem 'rspec-rails', '~> 6.0.0', groups: %i[development test]
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
