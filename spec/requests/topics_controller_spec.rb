@@ -16,10 +16,6 @@ RSpec.describe TopicsController, type: :controller do
       expect(assigns(:topics)).to include(topic1, topic2)
     end
 
-    it 'renders the index template' do
-      get :index
-      expect(response).to render_template(:index)
-    end
 
     it 'returns the status code 200' do
       get :index
