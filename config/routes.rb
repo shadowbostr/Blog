@@ -1,17 +1,21 @@
 # frozen_string_literal: true
+
 Rails.application.routes.draw do
 
-  resources :posts
   # Sets home page to topics/index.html.erb
   root to: 'topics#index'
 
-  #Shallow routing used in below nested routes
-  resources :topics do
-    resources :posts, only: [:index, :new, :create]
+  get '/posts', to: 'posts#index'
+
+  concern :commentable do
+    resources :comments
   end
 
-  resources :posts, only: [:show, :destroy, :edit, :update]
-
+  # Shallow routing used in below nested routes
+  resources :topics, shallow: true do
+    #Nestes routes for comment actions inside the routes of posts
+    resources :posts, concerns: :commentable
+  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

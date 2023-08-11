@@ -3,4 +3,4 @@
 <%= render 'form', post: @post %>
 
 <%= link_to 'Show', @post %> |
-<%= link_to 'Back', topic_path(@post.topic_id) %>
+<%= link_to 'Back', params.key?(:topic_id) ? topic_path(@post.topic_id) : posts_path %>

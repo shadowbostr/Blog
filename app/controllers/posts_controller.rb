@@ -62,7 +62,7 @@ class PostsController < ApplicationController
     @post.destroy
 
     respond_to do |format|
-      format.html { redirect_to topic_path(Topic.find(topic_id)), notice: "Post was successfully destroyed." }
+      format.html { redirect_to params.key?(:topic_id) ? topic_path(Topic.find(topic_id)) : posts_path, notice: "Post was successfully destroyed." }
       format.json { head :no_content }
     end
   end
