@@ -13,6 +13,13 @@
   <%= @post.body %>
 </div>
 
+<h3>Tags</h3>
+<ul>
+<% @post.tags.each do |tag| %>
+    <li><%= tag.name %></li>
+<% end %>
+</ul>
+
 <h2>Comments</h2>
 <% @post.comments.each do |comment| %>
   <p>

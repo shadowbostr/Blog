@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tags</h1>
+
+<table>
+  <thead>
+
+  </thead>
+
+  <tbody>
+  <% @tags.each do |tag| %>
+    <tr>
+      <td><%= link_to  tag.name , tag %></td>
+      <td><%= button_to 'Delete', tag, method: :delete, data: {confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back', '/posts' %>

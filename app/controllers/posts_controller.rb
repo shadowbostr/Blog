@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
 
-
   # GET /posts or /posts.json
   def index
     if params.key?(:topic_id)
@@ -15,25 +14,33 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+
   end
 
   # GET /posts/new
   def new
+
     @topic = Topic.find( params[:topic_id])
-    @post = @topic.posts.build
+    @post = @topic.posts.new
+    @tag = @post.tags.build
   end
 
   # GET /posts/1/edit
   def edit
+
+    @tag = @post.tags.build
+
   end
 
   # POST /posts or /posts.json
   def create
     @topic = Topic.find(params[:topic_id])
-    @post = @topic.posts.create(post_params)
+    @post = @topic.posts.new(post_params)
+
 
     respond_to do |format|
       if @post.save
+
         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -47,6 +54,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
+
         format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -77,9 +85,9 @@ class PostsController < ApplicationController
         @post = Post.find(params[:id])
       end
     end
-  
+
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body)
+      params.require(:post).permit(:title, :body, tags_attributes: [ :id, :name ], tag_ids: [] )
     end
 end

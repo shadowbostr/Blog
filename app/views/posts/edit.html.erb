@@ -1,6 +1,6 @@
 <h1>Editing Post</h1>
 
-<%= render 'form', post: @post %>
+<%= render 'form', post: @post , tag: @tag %>
 
 <%= link_to 'Show', @post %> |
 <%= link_to 'Back', params.key?(:topic_id) ? topic_path(@post.topic_id) : posts_path %>

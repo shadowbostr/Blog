@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
-  describe "POST #create" do
+
     let!(:post) { Post.create(title: "Test Post", body: "This is a test post", topic_id: nil) }
 
     context "with valid attributes" do
@@ -29,5 +29,4 @@ RSpec.describe CommentsController, type: :controller do
         expect(response).to render_template(:new)
       end
     end
-  end
 end

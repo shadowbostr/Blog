@@ -1,30 +1,33 @@
-class CommentsController < ApplicationController
-  before_action :set_post
+require 'rails_helper'
 
+RSpec.describe CommentsController, type: :controller do
+  describe "POST #create" do
+    let!(:post) { Post.create(title: "Test Post", body: "This is a test post.") }
 
-  # POST /comments or /comments.json
-  def create
-    @comment = @post.comments.new(comment_params)
+    context "with valid parameters" do
+      it "creates a new comment" do
+        expect {
+          post :create, params: { post_id: post.id, comment: { commenter: "John", content: "Hello, world!" } }
+        }.to change(Comment, :count).by(1)
+      end
 
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to post_path(@post), notice: "Comment was successfully created." }
-        format.json { render 'posts/show', status: :created, location: @post }
-      else
-        format.html { redirect_to post_path(@post), notice: "Comment was not created" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      it "redirects to the post's show page" do
+        post :create, params: { post_id: post.id, comment: { commenter: "John", content: "Hello, world!" } }
+        expect(response).to redirect_to(post_path(post))
+      end
+    end
+
+    context "with invalid parameters" do
+      it "does not create a new comment" do
+        expect {
+          post :create, params: { post_id: post.id, comment: { commenter: "", content: "" } }
+        }.not_to change(Comment, :count)
+      end
+
+      it "redirects to the post's show page" do
+        post :create, params: { post_id: post.id, comment: { commenter: "", content: "" } }
+        expect(response).to redirect_to(post_path(post))
       end
     end
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-  def set_post
-    @post = Post.find(params[:post_id])
-  end
-
-    # Only allow a list of trusted parameters through.
-    def comment_params
-      params.require(:comment).permit( :commenter, :content)
-    end
 end
