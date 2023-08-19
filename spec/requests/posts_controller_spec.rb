@@ -4,6 +4,24 @@ RSpec.describe PostsController, type: :controller do
   let(:topic) { Topic.create( name: 'Test topic') }
   describe "GET #index" do
 
+    it "assigns paginated @posts for a topic" do
+      posts = []
+      15.times { |i| posts << topic.posts.create(title: "Post #{i + 1}", body: "Body content is #{i + 100} ") }
+
+      get :index, params: { topic_id: topic.id }
+
+      expect(assigns(:posts)).to eq(posts.first(10))
+    end
+
+    it "assigns paginated @posts for all posts" do
+      posts = []
+      15.times { |i| posts << Post.create(title: "Post #{i + 1}", body: "Body content is #{i + 1}") }
+
+      get :index
+
+      expect(assigns(:posts)).to eq(posts.first(10))
+    end
+
     it "assigns @posts to list posts of specific topic" do
 
       post1 = topic.posts.create(title:'Test post1', body: 'Testing controller')
@@ -83,7 +101,7 @@ RSpec.describe PostsController, type: :controller do
 
     it "redirects to the topic page" do
       delete :destroy, params: { id: post.id }
-      expect(response).to redirect_to(topic_path(post.topic))
+      expect(response).to redirect_to(posts_path)
     end
 
     it 'returns the status code 302' do

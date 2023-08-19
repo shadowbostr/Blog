@@ -5,7 +5,7 @@ class TagsController < ApplicationController
   end
 
   def show
-    @posts = @tag.posts.all
+    @posts = @tag.posts.paginate(page: params[:page], per_page: 10)
     render 'posts/index'
   end
 
