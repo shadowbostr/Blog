@@ -1,3 +1,17 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+/* Styling for individual posts */
+
+.post-title {
+  width: 50%; /* Adjust the width as needed */
+}
+.category-content {
+  display: none;
+  font-size: 0.8rem;
+}
+
+.post-title:hover .category-content {
+  display: inline;
+}
+

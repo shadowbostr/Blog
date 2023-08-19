@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
+  self.per_page = 10
+
   belongs_to :topic, optional: true
   has_many :comments, dependent: :destroy
 

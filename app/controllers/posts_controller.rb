@@ -5,9 +5,10 @@ class PostsController < ApplicationController
   def index
     if params.key?(:topic_id)
       @topic = Topic.find( params[:topic_id] )
-      @posts = @topic.posts.all
+      @posts = @topic.posts.paginate(page: params[:page])
     else
-      @posts = Post.all
+
+      @posts = Post.includes(:topic).paginate(page: params[:page])
     end
 
   end
