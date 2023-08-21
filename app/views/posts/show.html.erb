@@ -13,6 +13,46 @@
   <%= @post.body %>
 </div>
 
+
+<% if @ratings_by_value.present? %>
+  <h2>Ratings:</h2>
+  <ul>
+    <% (1..5).reverse_each do |rating_value| %>
+      <% count = @ratings_by_value[rating_value] || 0 %>
+      <p><%= rating_value %> star<%= 's' if rating_value != 1 %> - <%= count %> </p>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No ratings yet.</p>
+<% end %>
+
+
+<%= form_for [@post, @rating] do |f| %>
+  <label>
+    <%= radio_button_tag 'rating[value]', 1 %>
+    1 star
+  </label>
+  <label>
+    <%= radio_button_tag 'rating[value]', 2 %>
+    2 stars
+  </label>
+  <label>
+    <%= radio_button_tag 'rating[value]', 3 %>
+    3 stars
+  </label>
+  <label>
+    <%= radio_button_tag 'rating[value]', 4 %>
+    4 stars
+  </label>
+  <label>
+    <%= radio_button_tag 'rating[value]', 5 %>
+    5 stars
+  </label>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.submit "Add Rating" %>
+<% end %>
+
+
 <h3>Tags</h3>
 <ul>
 <% @post.tags.each do |tag| %>

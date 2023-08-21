@@ -15,7 +15,8 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-
+    @rating = @post.ratings.build
+    @ratings_by_value = @post.ratings.group( :value ).count
   end
 
   # GET /posts/new

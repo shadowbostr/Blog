@@ -16,10 +16,14 @@ Rails.application.routes.draw do
     resources :tags
   end
 
+  concern :ratable do
+    resources :ratings, only: [:create]
+  end
+
   # Shallow routing used in below nested routes
   resources :topics, shallow: true do
     # Nestes routes for comment actions inside the routes of posts
-    resources :posts, concerns: %i[ commentable taggable ]
+    resources :posts, concerns: %i[ commentable taggable ratable ]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

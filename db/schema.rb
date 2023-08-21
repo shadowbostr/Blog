@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_11_091058) do
+ActiveRecord::Schema.define(version: 2023_08_19_121529) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(version: 2023_08_11_091058) do
     t.index ["tag_id", "post_id"], name: "index_posts_tags_on_tag_id_and_post_id"
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.integer "value"
+    t.integer "post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_ratings_on_post_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -51,4 +59,5 @@ ActiveRecord::Schema.define(version: 2023_08_11_091058) do
 
   add_foreign_key "comments", "posts"
   add_foreign_key "posts", "topics"
+  add_foreign_key "ratings", "posts"
 end
