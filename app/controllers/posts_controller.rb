@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   # GET /posts/1 or /posts/1.json
   def show
     @rating = @post.ratings.build
-    @ratings_by_value = @post.ratings.group( :value ).count
+    @ratings_by_value = @post.ratings.group(:value).count
   end
 
   # GET /posts/new
@@ -90,6 +90,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body, tags_attributes: [ :id, :name ], tag_ids: [] )
+      params.require(:post).permit(:title, :body, :image, tags_attributes: [ :id, :name ], tag_ids: [] )
     end
 end
