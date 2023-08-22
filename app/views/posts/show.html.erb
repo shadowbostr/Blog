@@ -1,4 +1,4 @@
-<p id="notice"> <%= notice %> </p>
+
 
 <h2>
   <%= @post.title %>
@@ -14,7 +14,7 @@
 </div>
 
 <% if @post.image.attached? %>
-  <%= image_tag @post.image, class: "w-2/3" %>
+  <%= image_tag @post.image, class: "w-1/3" %>
 <% end %>
 
 

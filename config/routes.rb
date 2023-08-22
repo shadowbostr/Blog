@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
 
+  devise_for :users
   # Sets home page to topics/index.html.erb
   root to: 'topics#index'
 
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   concern :ratable do
     resources :ratings, only: [:create]
   end
+
 
   # Shallow routing used in below nested routes
   resources :topics, shallow: true do
