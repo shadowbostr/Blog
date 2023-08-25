@@ -24,11 +24,11 @@
       <td><%= post.topic_id %></td>
       <td><%= link_to 'Show', post_path(post) %></td>
 
-      <% if can? :update, @post %>
+      <% if can? :update, post %>
       <td><%= link_to 'Edit', edit_post_path(post) %></td>
       <% end %>
 
-      <% if can? :update, @post %>
+      <% if can? :update, post %>
       <td><%= button_to 'Destroy', post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <% end %>
     </tr>

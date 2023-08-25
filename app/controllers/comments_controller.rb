@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, except: [:create]
+
   # POST /comments or /comments.json
   def create
     @post = Post.find(params[:post_id])
@@ -17,10 +18,12 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    authorize! :update, @comment
     @comment = Comment.find(params[:id])
   end
 
   def update
+    authorize! :update, @comment
     respond_to do |format|
       if @comment.update(comment_params)
 

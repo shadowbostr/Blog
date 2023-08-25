@@ -1,9 +1,5 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  load_and_authorize_resource
-
-
-
   # GET /posts or /posts.json
   def index
     if params.key?(:topic_id)
@@ -33,7 +29,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-
+    authorize! :update, @post
     @tag = @post.tags.build
 
   end
@@ -42,7 +38,7 @@ class PostsController < ApplicationController
   def create
     @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.new(post_params)
-    @post.user = currrent_user
+    @post.user = current_user
 
     respond_to do |format|
       if @post.save
@@ -58,6 +54,7 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+    authorize! :update, @post
     respond_to do |format|
       if @post.update(post_params)
 
@@ -72,7 +69,8 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
-    topic_id = current_@post.topic_id
+    authorize! :destroy, @post
+    topic_id = @post.topic_id
     @post.destroy
 
     respond_to do |format|
