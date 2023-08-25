@@ -1,5 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
+  load_and_authorize_resource
+
+
 
   # GET /posts or /posts.json
   def index
@@ -17,6 +20,7 @@ class PostsController < ApplicationController
   def show
     @rating = @post.ratings.build
     @ratings_by_value = @post.ratings.group(:value).count
+    @comments = @post.comments
   end
 
   # GET /posts/new
@@ -24,7 +28,7 @@ class PostsController < ApplicationController
 
     @topic = Topic.find( params[:topic_id])
     @post = @topic.posts.new
-    @tag = @post.tags.build
+    @tag = @post.tags.new
   end
 
   # GET /posts/1/edit
@@ -38,7 +42,7 @@ class PostsController < ApplicationController
   def create
     @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.new(post_params)
-
+    @post.user = currrent_user
 
     respond_to do |format|
       if @post.save
@@ -68,7 +72,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
-    topic_id = @post.topic_id
+    topic_id = current_@post.topic_id
     @post.destroy
 
     respond_to do |format|

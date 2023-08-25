@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   self.per_page = 10
 
   belongs_to :topic, optional: true
+  belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :ratings, dependent: :destroy
   has_and_belongs_to_many :tags

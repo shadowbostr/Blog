@@ -1,0 +1,13 @@
+
+
+<p> <strong> <%= comment.commenter %> </strong> &nbsp; &nbsp;&nbsp;<small ><%= comment.user.email %></small> </p>
+<p> <%= comment.content %></td> </p>
+
+<% if can? :update, comment %>
+<p> <%= link_to 'Edit comment', edit_comment_path( comment ) %> </p>
+<% end %>
+
+&nbsp; &nbsp;
+
+
+

@@ -5,6 +5,11 @@
 </h2>
 
 <p>
+  <strong>Author</strong>
+  <%= @post.user.email %>
+</p>
+
+<p>
   <strong>'Topic id'</strong>
   <%= @post.topic_id %>
 </p>
@@ -66,18 +71,12 @@
 </ul>
 
 <h2>Comments</h2>
-<% @post.comments.each do |comment| %>
-  <p>
-    <strong> <%= comment.commenter %> </strong>
-  </p>
 
-  <p>
-    <%= comment.content %>
-  </p>
-<% end %>
+ <%= render partial: "comments/comment", collection: @comments %>
+
 
 <h2>Add a comment:</h2>
-<%= form_with model: [ @post, @post.comments.build ] do |form| %>
+<%= form_with model: [ @post, @post.comments.new ] do |form| %>
   <p>
     <%= form.label :commenter %><br>
     <%= form.text_field :commenter %>

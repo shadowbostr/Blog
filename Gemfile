@@ -63,3 +63,4 @@ gem 'mini_magick', '~>4.12'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "devise", "~> 4.9"
+gem 'cancancan'
