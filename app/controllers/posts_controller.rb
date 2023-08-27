@@ -4,10 +4,9 @@ class PostsController < ApplicationController
   def index
     if params.key?(:topic_id)
       @topic = Topic.find( params[:topic_id] )
-      @posts = @topic.posts.paginate(page: params[:page])
+      @posts = @topic.posts.includes(:ratings).paginate(page: params[:page])
     else
-
-      @posts = Post.includes(:topic).paginate(page: params[:page])
+      @posts = Post.includes(:topic, :ratings).paginate(page: params[:page])
     end
 
   end
