@@ -1,12 +1,11 @@
 class TagsController < ApplicationController
   before_action :set_tags, only: [ :show, :destroy ]
   def index
-    @tags = Tag.all
+    @tags = Tag.paginate(page: params[:page], per_page: 10)
   end
 
   def show
-    @posts = @tag.posts.paginate(page: params[:page], per_page: 10)
-    render 'posts/index'
+
   end
 
   def create

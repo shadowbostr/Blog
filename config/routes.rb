@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get '/posts', to: 'posts#index'
   get '/tags', to: 'tags#index'
+  get '/tags/:tag_id/posts', to: 'posts#index'
+  post 'posts/:id/mark_as_read', to: 'posts#mark_as_read'
 
   concern :commentable do
     resources :comments

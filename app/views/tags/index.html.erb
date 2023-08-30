@@ -10,16 +10,23 @@
   <tbody>
   <% @tags.each do |tag| %>
     <tr>
-      <td><%= link_to  tag.name , tag %></td>
-      <td><%= button_to 'Delete', tag, method: :delete, data: {confirm: 'Are you sure?' } %></td>
+      <td><%= link_to  tag.name , "/tags/#{tag.id}/posts" %></td>
+      <td><%= button_to 'Delete', tag, method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
+
+<div class="apple_pagination">
+  <div class="page_info">
+    <%= page_entries_info @tags %>
+  </div>
+  <%= will_paginate @tags, :container => false %>
+</div>
 <br>
 
 
 
 <br>
 
-<%= link_to 'Back', '/posts' %>
+<%= link_to 'Back', topics_path %>

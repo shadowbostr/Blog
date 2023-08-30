@@ -1,14 +1,20 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, except: %i[index create new  ]
   # GET /posts or /posts.json
   def index
-    if params.key?(:topic_id)
-      @topic = Topic.find( params[:topic_id] )
+    if params.key?(:topic_id) # getting posts of particular topic
+      @topic = Topic.find(params[:topic_id])
       @posts = @topic.posts.includes(:ratings).paginate(page: params[:page])
-    else
+
+    elsif params.key?(:tag_id) # getting posts which belongs to particular tag
+      @tag = Tag.find(params[:tag_id])
+      @posts = @tag.posts.includes(:topic, :ratings).paginate(page: params[:page])
+
+    else # getting all posts
       @posts = Post.includes(:topic, :ratings).paginate(page: params[:page])
     end
 
+    @read_statuses = current_user.read_posts
   end
 
   # GET /posts/1 or /posts/1.json
@@ -78,6 +84,15 @@ class PostsController < ApplicationController
     end
   end
 
+  def mark_as_read
+    unless current_user.read_posts.include?(@post)
+      current_user.read_posts << @post
+    end
+    respond_to do |format|
+      format.js { render js: "console.log('post marked as read')"  }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -91,6 +106,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body, :image, tags_attributes: [ :id, :name ], tag_ids: [] )
+      params.require(:post).permit(:title, :body, :image, tags_attributes: %i[id name], tag_ids: [] )
     end
 end

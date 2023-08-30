@@ -11,9 +11,9 @@
   <tbody>
     <% @topics.each do |topic| %>
       <tr>
-        <td><%= link_to  topic.name , topic %></td>
+        <td><%= link_to  topic.name , topic_posts_path(topic) %></td>
         <td><%= link_to 'Edit', edit_topic_path(topic) %></td>
-        <td><%= button_to 'Delete', topic, method: :delete, data: {confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Delete', topic, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-outline-danger btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>

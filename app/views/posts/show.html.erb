@@ -95,3 +95,24 @@
 <% end %>
 
 <%= link_to 'Back', posts_path %>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var postId =  <%= @post.id %>;
+
+        // Check if the post is unread
+
+        var xhttpRequest = new XMLHttpRequest();
+        xhttpRequest.open('POST', '/posts/' + postId + '/mark_as_read', true);
+        xhttpRequest.setRequestHeader('X-CSRF-Token', '<%= form_authenticity_token %>');
+        xhttpRequest.onreadystatechange = function() {
+            if (xhttpRequest.readyState === XMLHttpRequest.DONE && xhttpRequest.status === 200) {
+                console.log('Post marked as read');
+            }
+            else {
+                console.error('Error marking post as read:', xhttpRequest.statusText);
+            }
+        }
+        xhttpRequest.send();
+    });
+</script>

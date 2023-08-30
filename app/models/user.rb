@@ -7,4 +7,5 @@ class User < ApplicationRecord
   # Associations
   has_many :posts
   has_many :comment
+  has_and_belongs_to_many :read_posts, class_name: 'Post', join_table: 'posts_users_read_status', inverse_of: :read_posts  # For post read status
 end

@@ -8,6 +8,7 @@ class TopicsController < ApplicationController
 
   # GET /topics/1 or /topics/1.json
   def show
+
   end
 
   # GET /topics/new

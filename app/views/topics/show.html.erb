@@ -33,6 +33,7 @@
       <% end %>
       <td><%= post.comments.size %> comments</td>
       <td>Average Rating: <%= post.avg_rating %> stars</td>
+      <td class="badge bg-info text-dark" ><%= @read_statuses.include?(post) ? 'Read' : 'Unread' %></td>
     </tr>
   <% end %>
   </tbody>
