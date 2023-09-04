@@ -11,6 +11,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :ratings, dependent: :destroy
   has_and_belongs_to_many :tags
+  has_and_belongs_to_many :read_by_users, class_name: 'User', join_table: 'posts_users_read_status', inverse_of: :read_by_users # For post read status
 
   has_one_attached :image do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
@@ -20,8 +21,8 @@ class Post < ApplicationRecord
 
 
   # validations
-  validates :title, presence: true
-  validates :body, presence: true, length: { minimum: 10 }
+  validates :title, presence: true, length: { in: 5..20 }
+  validates :body, presence: true , length:{ minimum: 10 }
   validates_associated :tags
 
   def avg_rating

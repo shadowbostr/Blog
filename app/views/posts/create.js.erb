@@ -1,0 +1,37 @@
+// app/views/posts/create.js.erb
+$(document).ready(function() {
+
+    $('#PostForm').on('submit',function(){
+        // Show loading indicator
+        showLoadingIndicator();
+    });
+
+    <% if @post.errors.any? %>
+    // Display validation errors in an alert box
+    var errorMessage = "Error(s) occurred:\n";
+    <% @post.errors.full_messages.each do |message| %>
+    errorMessage += "- <%= j message %>\n"; // Use j to escape the message
+    <% end %>
+    hideLoadingIndicator();
+    alert(errorMessage);
+
+    <% else %>
+    // Display a success message
+    hideLoadingIndicator();
+    // Append the new post to the posts table
+    $('#postsTable').prepend('<%= j render "post", post: @post ,read_statuses:[] %>');
+    alert("Post created successfully");
+    // Clear the form
+    $('#new-post-form').html('');
+    <% end %>
+});
+
+function showLoadingIndicator() {
+    $('#loading-overlay').show();
+    $('body').css('overflow', 'hidden'); // Prevent scrolling
+}
+
+function hideLoadingIndicator() {
+    $('#loading-overlay').hide();
+    $('body').css('overflow', 'auto'); // Re-enable scrolling
+}

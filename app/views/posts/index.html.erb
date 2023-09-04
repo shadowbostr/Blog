@@ -15,7 +15,7 @@
   </tr>
   </thead>
 
-  <tbody>
+  <tbody id='postsTable'>
   <%= render partial: 'post', collection: @posts, locals: { read_statuses: @read_statuses } %>
   </tbody>
 </table>
@@ -33,5 +33,11 @@
 
 <%= link_to 'Back', topics_path %>
 <% if params.key?(:topic_id) %>
-   | <%= link_to 'Create post',new_topic_post_path(@topic)  %>
+   | <%= link_to 'New post',new_topic_post_path(@topic), remote: true  %>
 <% end %>
+
+<div id='PostForm'>
+
+</div>
+
+

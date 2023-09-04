@@ -30,6 +30,13 @@ class PostsController < ApplicationController
     @topic = Topic.find( params[:topic_id])
     @post = @topic.posts.new
     @tag = @post.tags.new
+
+    respond_to do |format|
+
+      format.html # Render the HTML template
+      format.js   # Render JavaScript to update the container
+    end
+
   end
 
   # GET /posts/1/edit
@@ -48,11 +55,15 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
 
-        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
-        format.json { render :show, status: :created, location: @post }
+         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
+         format.json { render :show, status: :created, location: @post }
+         format.js
+
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+         format.html { render :new, status: :unprocessable_entity }
+         format.json { render json: @post.errors, status: :unprocessable_entity }
+         format.js
+
       end
     end
   end

@@ -5,57 +5,64 @@
   <% submit_url = post_path(post) %>
 <% end %>
 
-<%= form_with(model: post , url: submit_url) do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation" style="color: red">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<%= form_with(model: post , url: submit_url, local: false, remote: true ) do |form| %>
+  <div class="modal-body">
+    <% if post.errors.any? %>
+      <div id="error_explanation" style="color: red">
+        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body, rows: 10 %>
-  </div>
-
-  <div>
-  <%= form.label :image %>
-  <%= form.file_field :image %>
-  </div>
-
-  <div class='field'>
-    <h3>Choose Tags:</h3>
-    <% Tag.all.each do |tag| %>
-      <label>
-        <%= check_box_tag 'post[tag_ids][]', tag.id, @post.tags.include?(tag) %>
-        <%= tag.name %>
-      </label><br>
+        <ul>
+          <% post.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
-  </div>
 
-  <%= form.fields_for :tags, tag do |tag_form| %>
+
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div class="field">
+      <%= form.label :body %>
+      <%= form.text_area :body, rows: 10 %>
+    </div>
+
+    <div>
+      <%= form.label :image %>
+      <%= form.file_field :image %>
+    </div>
 
     <div class='field'>
-      <h3>(or) Create Tag:</h3>
-      <%= tag_form.label :Tag_name %>
-      <%= tag_form.text_field :name, placeholder: 'New Tag Name' %>
+      <h3>Choose Tags:</h3>
+      <% Tag.all.each do |tag| %>
+        <label>
+          <%= check_box_tag 'post[tag_ids][]', tag.id, @post.tags.include?(tag) %>
+          <%= tag.name %>
+        </label><br>
+      <% end %>
     </div>
 
-  <% end %>
+    <%= form.fields_for :tags, tag do |tag_form| %>
 
+      <div class='field'>
+        <h3>(or) Create Tag:</h3>
+        <%= tag_form.label :Tag_name %>
+        <%= tag_form.text_field :name, placeholder: 'New Tag Name' %>
+      </div>
 
-  <div class="actions">
-    <%= form.submit %>
+    <% end %>
+
   </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+
 <% end %>
+
+
+
+

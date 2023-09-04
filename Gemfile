@@ -11,8 +11,6 @@ gem 'sqlite3', '~> 1.4'
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -23,7 +21,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+ gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -55,7 +53,6 @@ end
 gem 'rspec-rails', '~> 6.0.0', groups: %i[development test]
 gem 'rails-controller-testing',  groups: %i[development test]
 gem 'will_paginate', '~>4.0'
-gem 'image_processing', '>= 1.2'
 gem 'mini_magick', '~>4.12'
 
 
@@ -64,3 +61,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "devise", "~> 4.9"
 gem 'cancancan'
+gem 'jquery-rails'
+gem 'sprockets', '~> 4.0'
+
