@@ -14,7 +14,7 @@ class PostsController < ApplicationController
       @posts = Post.includes(:topic, :ratings).paginate(page: params[:page])
     end
 
-    @read_statuses = current_user.read_posts
+    @read_statuses = current_user.read_posts if current_user.present?
   end
 
   # GET /posts/1 or /posts/1.json

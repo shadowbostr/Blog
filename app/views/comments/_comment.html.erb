@@ -7,6 +7,10 @@
 <p> <%= link_to 'Edit comment', edit_comment_path( comment ) %> </p>
 <% end %>
 
+<% if user_signed_in? %>
+  <%= link_to 'Rate', comment_path(comment) %>
+  <% end %>
+
 &nbsp; &nbsp;
 
 

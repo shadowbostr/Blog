@@ -1,7 +1,9 @@
 class CommentsController < ApplicationController
   before_action :set_comment, except: [:create]
 
-  # POST /comments or /comments.json
+  def show
+    @comment_ratings = @comment.comment_ratings
+  end
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.new(comment_params)
