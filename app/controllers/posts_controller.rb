@@ -2,19 +2,30 @@ class PostsController < ApplicationController
   before_action :set_post, except: %i[index create new  ]
   # GET /posts or /posts.json
   def index
+    # Checking date range
+    if params[:from_date].present? && params[:to_date].present?
+      from_date = Date.parse(params[:from_date])
+      to_date = Date.parse(params[:to_date])
+    else
+      from_date = Date.yesterday
+      to_date = Date.today
+    end
+    # getting current user's read posts
+    @read_statuses = current_user.read_posts.select(:id) if current_user.present?
+
     if params.key?(:topic_id) # getting posts of particular topic
       @topic = Topic.find(params[:topic_id])
-      @posts = @topic.posts.includes(:ratings, :user).paginate(page: params[:page])
+      @posts = @topic.posts.includes(:ratings, :user).filter_by_date_range(from_date, to_date).paginate(page: params[:page])
 
     elsif params.key?(:tag_id) # getting posts which belongs to particular tag
       @tag = Tag.find(params[:tag_id])
-      @posts = @tag.posts.includes(:topic, :ratings, :user).paginate(page: params[:page])
+      @posts = @tag.posts.includes(:topic, :ratings, :user).filter_by_date_range(from_date, to_date).paginate(page: params[:page])
 
     else # getting all posts
-      @posts = Post.includes(:topic, :ratings, :user).paginate(page: params[:page])
+      @posts = Post.includes(:topic, :ratings, :user).filter_by_date_range(from_date, to_date).paginate(page: params[:page])
     end
 
-    @read_statuses = current_user.read_posts if current_user.present?
+
   end
 
   # GET /posts/1 or /posts/1.json

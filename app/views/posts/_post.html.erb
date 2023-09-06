@@ -12,6 +12,6 @@
       <td><%= post.comments.size %> comments</td>
       <td>Average Rating: <%= post.avg_rating %> stars</td>
       <% if current_user.present? %>
-        <td class="badge bg-info text-dark" ><%= read_statuses.include?(post) ? 'Read' : 'Unread' %></td>
+        <td class="badge bg-info text-dark" ><%= read_statuses.include?(post.id) ? 'Read' : 'Unread' %></td>
       <% end %>
     </tr>
