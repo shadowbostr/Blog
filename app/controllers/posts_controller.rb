@@ -4,14 +4,14 @@ class PostsController < ApplicationController
   def index
     if params.key?(:topic_id) # getting posts of particular topic
       @topic = Topic.find(params[:topic_id])
-      @posts = @topic.posts.includes(:ratings).paginate(page: params[:page])
+      @posts = @topic.posts.includes(:ratings, :user).paginate(page: params[:page])
 
     elsif params.key?(:tag_id) # getting posts which belongs to particular tag
       @tag = Tag.find(params[:tag_id])
-      @posts = @tag.posts.includes(:topic, :ratings).paginate(page: params[:page])
+      @posts = @tag.posts.includes(:topic, :ratings, :user).paginate(page: params[:page])
 
     else # getting all posts
-      @posts = Post.includes(:topic, :ratings).paginate(page: params[:page])
+      @posts = Post.includes(:topic, :ratings, :user).paginate(page: params[:page])
     end
 
     @read_statuses = current_user.read_posts if current_user.present?

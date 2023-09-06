@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, except: [:create]
 
   def show
-    @comment_ratings = @comment.comment_ratings
+    @comment_ratings = @comment.comment_ratings.includes(:user)
   end
   def create
     @post = Post.find(params[:post_id])

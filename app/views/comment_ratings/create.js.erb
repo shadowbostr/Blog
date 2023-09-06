@@ -1,0 +1,37 @@
+
+$(document).ready(function() {
+
+    $('#RatingForm').on('submit',function(){
+        // Show loading indicator
+        showLoadingIndicator();
+    });
+
+    <% if @comment_rating.errors.any? %>
+    // Display validation errors in an alert box
+    var errorMessage = "Error(s) occurred:\n";
+    <% @comment_rating.errors.full_messages.each do |message| %>
+    errorMessage += "- <%= j message %>\n"; // Use j to escape the message
+    <% end %>
+    hideLoadingIndicator();
+    alert(errorMessage);
+
+    <% else %>
+    // Display a success message
+    hideLoadingIndicator();
+    // Append the new post to the posts table
+    $('#CommentRatingTable').append('<%= j render "comment_rating", comment_rating: @comment_rating %>');
+    alert("Rating added successfully");
+    // Clear the form
+    $('#RatingForm').html('');
+    <% end %>
+});
+
+function showLoadingIndicator() {
+    $('#loading-overlay').show();
+    $('body').css('overflow', 'hidden'); // Prevent scrolling
+}
+
+function hideLoadingIndicator() {
+    $('#loading-overlay').hide();
+    $('body').css('overflow', 'auto'); // Re-enable scrolling
+}

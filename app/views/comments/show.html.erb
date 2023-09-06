@@ -1,0 +1,28 @@
+
+<h3>Comment:</h3>
+<%= @comment.content %>
+<br><hr>
+
+<table id='CommentRatingTable'>
+  <tr>
+    <th>User</th>
+    <th>Rating</th>
+  </tr>
+
+<%= render partial: 'comment_ratings/comment_rating', collection: @comment_ratings %>
+</table>
+
+<h3> Add Rating</h3>
+
+
+<%= form_with(model: [@comment, @comment.comment_ratings.new], local: false, remote: true ) do |form| %>
+  <div class="field">
+    <%= form.label :rating %>
+    <%= form.select :rating, options_for_select(1..5) %>
+  </div>
+  <div class="actions">
+    <%= form.submit 'Submit Rating' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to post', post_path(@comment.post) %>

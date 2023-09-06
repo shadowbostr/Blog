@@ -30,5 +30,9 @@ Rails.application.routes.draw do
     resources :posts, concerns: %i[ commentable taggable ratable ]
   end
 
+  resources :comments, only: :show do
+    resources :comment_ratings
+end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

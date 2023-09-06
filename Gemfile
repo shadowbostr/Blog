@@ -63,4 +63,6 @@ gem "devise", "~> 4.9"
 gem 'cancancan'
 gem 'jquery-rails'
 gem 'sprockets', '~> 4.0'
+gem 'bullet', group: 'development'
+
 
