@@ -25,9 +25,11 @@ class Post < ApplicationRecord
   validates :body, presence: true , length:{ minimum: 10 }
   validates_associated :tags
 
-  def avg_rating
-    return 0 if ratings.empty?
-    ratings.average(:value).round(1)
+  def set_rating_average
+    puts "before updation #{self.rating_average}"
+    self.rating_average = ratings.average(:value).to_f.round(2)
+    puts "after updation #{self.rating_average}"
+    save
   end
 
   scope :filter_by_date_range, ->(from_date, to_date) {

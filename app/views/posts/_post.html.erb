@@ -10,8 +10,8 @@
         <td><%= button_to 'Destroy', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
       <% end %>
       <td><%= post.comments.size %> comments</td>
-      <td>Average Rating: <%= post.avg_rating %> stars</td>
+      <td>Average Rating: <%= post.rating_average %> stars</td>
       <% if current_user.present? %>
-        <td class="badge bg-info text-dark" ><%= read_statuses.include?(post.id) ? 'Read' : 'Unread' %></td>
+        <td class="badge bg-info text-dark" ><%= read_statuses.include?(post) ? 'Read' : 'Unread' %></td>
       <% end %>
     </tr>

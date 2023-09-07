@@ -11,18 +11,18 @@ class PostsController < ApplicationController
       to_date = Date.today
     end
     # getting current user's read posts
-    @read_statuses = current_user.read_posts.select(:id) if current_user.present?
+    @read_statuses = current_user.read_posts.select(:id).to_a if current_user.present?
 
     if params.key?(:topic_id) # getting posts of particular topic
       @topic = Topic.find(params[:topic_id])
-      @posts = @topic.posts.includes(:ratings, :user).filter_by_date_range(from_date, to_date).paginate(page: params[:page])
+      @posts = @topic.posts.includes(:user).filter_by_date_range(from_date, to_date).paginate(page: params[:page])
 
     elsif params.key?(:tag_id) # getting posts which belongs to particular tag
       @tag = Tag.find(params[:tag_id])
-      @posts = @tag.posts.includes(:topic, :ratings, :user).filter_by_date_range(from_date, to_date).paginate(page: params[:page])
+      @posts = @tag.posts.includes(:topic, :user).filter_by_date_range(from_date, to_date).paginate(page: params[:page])
 
     else # getting all posts
-      @posts = Post.includes(:topic, :ratings, :user).filter_by_date_range(from_date, to_date).paginate(page: params[:page])
+      @posts = Post.includes(:topic, :user).filter_by_date_range(from_date, to_date).paginate(page: params[:page])
     end
 
 
