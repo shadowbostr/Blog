@@ -17,9 +17,9 @@ $(document).ready(function() {
 
     <% else %>
     // Display a success message
-    hideLoadingIndicator();
+
     // Append the new post to the posts table
-    $('#postsTable').prepend('<%= j render "post", post: @post ,read_statuses:[] %>');
+    $('#postsTableBody').prepend('<%= j render "post", post: @post ,read_statuses:[] %>');
     alert("Post created successfully");
     // Clear the form
     $('#new-post-form').html('');

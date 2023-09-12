@@ -1,4 +1,4 @@
-
+<div class="container">
 <% if post.new_record? %>
   <% submit_url = topic_posts_path %>
 <% else %>
@@ -8,12 +8,12 @@
 <%= form_with(model: post , url: submit_url, local: false, remote: true ) do |form| %>
   <div class="modal-body">
     <% if post.errors.any? %>
-      <div id="error_explanation" style="color: red">
+      <div id="error_explanation" >
         <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
         <ul>
           <% post.errors.each do |error| %>
-            <li><%= error.full_message %></li>
+            <li class="alert alert-dismissible"><%= error.full_message %></li>
           <% end %>
         </ul>
       </div>
@@ -22,12 +22,12 @@
 
     <div class="field">
       <%= form.label :title %>
-      <%= form.text_field :title %>
+      <%= form.text_field :title, class: "form-control border-success" %>
     </div>
 
     <div class="field">
       <%= form.label :body %>
-      <%= form.text_area :body, rows: 10 %>
+      <%= form.text_area :body, rows: 10, class: "form-control border-success" %>
     </div>
 
     <div>
@@ -37,20 +37,21 @@
 
     <div class='field'>
       <h3>Choose Tags:</h3>
+      <div class="col-form-label-lg m-2">
       <% Tag.all.each do |tag| %>
-        <label>
+
           <%= check_box_tag 'post[tag_ids][]', tag.id, @post.tags.include?(tag) %>
           <%= tag.name %>
-        </label><br>
       <% end %>
+      </div>
     </div>
 
     <%= form.fields_for :tags, tag do |tag_form| %>
 
-      <div class='field'>
+      <div class='field '>
         <h3>(or) Create Tag:</h3>
         <%= tag_form.label :Tag_name %>
-        <%= tag_form.text_field :name, placeholder: 'New Tag Name' %>
+        <%= tag_form.text_field :name, placeholder: 'New Tag Name', class: "form-control border-success" %>
       </div>
 
     <% end %>
@@ -62,6 +63,7 @@
     </div>
 
 <% end %>
+</div>
 
 
 

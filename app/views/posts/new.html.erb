@@ -2,4 +2,4 @@
 
 <%= render 'form', post: @post , tag: @tag %>
 
-<%= link_to 'Back', topic_path(@topic) %>
+<%= link_to 'Back', topic_posts_path(@post.topic) %>

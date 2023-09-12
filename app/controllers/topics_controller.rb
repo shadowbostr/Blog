@@ -3,7 +3,7 @@ class TopicsController < ApplicationController
 
   # GET /topics or /topics.json
   def index
-    @topics = Topic.all.order(title: :asc)
+    @topics = Topic.order(created_at: :desc).paginate(page: params[:page])
   end
 
   # GET /topics/1 or /topics/1.json
@@ -39,7 +39,7 @@ class TopicsController < ApplicationController
   def update
     respond_to do |format|
       if @topic.update(topic_params)
-        format.html { redirect_to topic_url(@topic), notice: "Topic was successfully updated." }
+        format.html { redirect_to topic_posts_path(@topic), notice: "Topic was successfully updated." }
         format.json { render :show, status: :ok, location: @topic }
       else
         format.html { render :edit, status: :unprocessable_entity }

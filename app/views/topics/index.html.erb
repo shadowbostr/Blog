@@ -2,13 +2,13 @@
 
 
 <h1>Topics</h1>
-
-<table>
+<div class="table-responsive">
+<table id="TopicsTable" class="table table-hover">
   <thead>
 
   </thead>
 
-  <tbody>
+  <tbody class="table-group-divider">
     <% @topics.each do |topic| %>
       <tr>
         <td><%= link_to  topic.name , topic_posts_path(topic) %></td>
@@ -19,8 +19,23 @@
   </tbody>
 </table>
 
+  <div class="apple_pagination">
+    <div class="page_info">
+      <%= page_entries_info @posts %>
+    </div>
+    <%= will_paginate @posts, :container => false %>
+  </div>
+
+</div>
+
+
+
 <br>
 
-<%= link_to 'Create Topic', new_topic_path %>
-<%= link_to 'Show all posts', '/posts' %>
-<%= link_to 'Show all tags', '/tags' %>
+<ul class="nav justify-content-center">
+
+  <li class="nav-item m-2 badge btn btn-primary text-bg-light"> <%= link_to 'Create Topic', new_topic_path %> </li>
+  <li class="nav-item m-2 badge btn btn-primary text-bg-light"> <%= link_to 'Show all posts', '/posts' %> </li>
+  <li class="nav-item m-2 badge btn btn-primary text-bg-light"> <%= link_to 'Show all tags', '/tags' %> </li>
+
+</ul>

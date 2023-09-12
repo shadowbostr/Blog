@@ -20,18 +20,14 @@
   <%= date_range.submit "Show Details", class: "btn btn-primary" %>
 <% end %>
 
+<div class="container ">
+<table id='postsTable' class="table table-hover">
 
-<table>
-  <thead>
-  <tr>
-
-  </tr>
-  </thead>
-
-  <tbody id='postsTable'>
+  <tbody id='postsTableBody' >
   <%= render partial: 'post', collection: @posts, locals: { read_statuses: @read_statuses } %>
   </tbody>
 </table>
+</div>
 
 
 
@@ -45,7 +41,7 @@
 <br>
 
 <%= link_to 'Back', topics_path %>
-<% if params.key?(:topic_id) %>
+<% if params.key?(:topic_id) && current_user.present? %>
    | <%= link_to 'New post',new_topic_post_path(@topic), remote: true  %>
 <% end %>
 
