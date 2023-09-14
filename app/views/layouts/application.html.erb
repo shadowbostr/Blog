@@ -7,9 +7,11 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    body {
+    padding-top: 55px;
+    }
 
   </head>
 
@@ -17,7 +19,7 @@
   <body>
 
     <%= render partial: 'shared/header' %>
-
+    <div class="container-fluid mt-5 ">
     <% if notice %>
     <p class = "alert alert-success alert-dismissible">
       <%= notice %>
@@ -40,6 +42,6 @@
     <!--  styles for the loading indicator -->
   </div>
   </div>
-
+    </div>
   </body>
 </html>

@@ -39,6 +39,8 @@ group :development do
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'rack-mini-profiler', '~> 2.0'
+  gem 'bullet'
+  gem "letter_opener"
 end
 
 group :test do
@@ -63,6 +65,5 @@ gem "devise", "~> 4.9"
 gem 'cancancan'
 gem 'jquery-rails'
 gem 'sprockets', '~> 4.0'
-gem 'bullet', group: 'development'
-
+gem 'sidekiq'
 

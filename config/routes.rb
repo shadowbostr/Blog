@@ -2,7 +2,9 @@
 
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
   # Sets home page to topics/index.html.erb
   root to: 'topics#index'
 

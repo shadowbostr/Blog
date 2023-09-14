@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # , :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
 
   # Associations
   has_many :posts
@@ -11,4 +11,8 @@ class User < ApplicationRecord
   # for user comment rating
   has_many :comment_ratings
   has_many :rated_comments, through: :comment_ratings, source: :comment
+
+  # validation
+  validates :username, presence: true, length: {maximum: 20}
+
 end
